@@ -10,7 +10,7 @@ namespace MRTestProject.Infastructure
         {
             builder.HasKey(_ => _.CategoryId);
 
-            builder.HasAlternateKey(_ => _.Name);
+            builder.HasIndex(_ => _.Name).IsUnique();
 
             builder.Property(_ => _.Name).HasMaxLength(100);
         }

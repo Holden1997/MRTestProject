@@ -2,66 +2,63 @@
 @model MRTestProject.Models.BaseViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<h1>Products</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create new product</a>
 </p>
-<form method="get">
-    <div class="form-inline">
-        
+<div class="form-inline">
+    @*<form method="get">
+            <div class="form-inline">
 
-        <label>Category: </label>
+                <label>Category:</label>
 
-        <select name="category" asp-items="@Model.FilterViewModel.Categories" class="form-control"></select>
+                <select style="margin-left:10px" name="category" asp-items="@Model.FilterViewModel.Categories" class="form-control"></select>
 
-        <input type="submit" value="Filter" class="btn btn-outline-dark" />
-    </div>
-</form>
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Product.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+                <input style="margin-left:10px" type="submit" value="Filter" class="btn btn-outline-dark" />
+            </div>
+        </form>*@
+    <form method="get">
+        <div class="form-inline">
+
+            <div class="md-form mt-0">
+                <input class="form-control" id="filter" name="filter" type="text" placeholder="Search" aria-label="Search">
+            </div>
+
+            <input style="margin-left:10px" type="submit" value="filter" class="btn btn-outline-dark" />
+
+        </div>
+
+    </form>
+</div>
+
+<div class="row">
+    @if (Model.Products != null)
+    {
         @foreach (var item in Model.Products)
         {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id  = item.ProductId }) |
-                @Html.ActionLink("Delete", "Delete", new { id= item.ProductId })
-            </td>
-        </tr>
+
+            <div class="card col-md-auto" style="width: 20rem; margin-left:15px; margin-top:10px;">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@item.Category.Name</h6>
+                    @if (item.Description != null)
+                    {
+                        <p class="card-text">Description: @item.Description</p>
+                    }
+                    <h6 class="card-subtitle mb-2 ">Price: @item.Price</h6>
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductId })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    }
+
+</div>
+
+

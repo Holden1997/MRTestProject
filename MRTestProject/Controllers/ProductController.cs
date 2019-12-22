@@ -19,16 +19,22 @@ namespace MRTestProject.Controllers
             _storeService = storeService;          
         }
         // GET: Product
-        public ActionResult Index(Guid? category, int? limit, int? offset)
+        public ActionResult Index(string filter, int? limit, int? offset)
         {
-            var products = _storeService.GetProducts(limit,offset).MapToViewModel();
+            var products = _storeService.GetProducts(limit, offset).MapToViewModel();
             var categories = _storeService.GetCategories().MapToViewModel();
 
             BaseViewModel baseViewModel = new BaseViewModel();
             baseViewModel.FilterViewModel = new FilterViewModel(categories, null, "All");
 
-            if (products != null & category != null& category!= new Guid())
-                baseViewModel.Products = products.Where(product => product.Category.CategoryId == category);
+            if (filter != null)
+            {
+                baseViewModel.Products = products.Where(_ => _.Name.StartsWith(filter)
+                || _.Price.ToString().StartsWith(filter) 
+                || _.Category.Name.StartsWith(filter));
+            }
+            //  if (products != null & category != null & category != new Guid())
+            //    baseViewModel.Products = products.Where(product => product.Category.CategoryId == category);
 
             else baseViewModel.Products = products;
 

@@ -5,9 +5,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Product</h4>
+<h4>Create new product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -36,7 +34,7 @@
           
             <div class="form-group">
 
-                <select asp-for="CategoryId" asp-items="@Model.Categories;">
+                <select class="selectpicker" asp-for="CategoryId" asp-items="@Model.Categories;">
                  
                 </select>
 
