@@ -19,6 +19,6 @@ namespace MRTestProject.Domain
         void CreateProduct(Product product);
         void EditProduct(Product product);
         void Delete(Product product);
-
+        
     }
 }

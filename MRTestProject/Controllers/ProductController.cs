@@ -22,10 +22,8 @@ namespace MRTestProject.Controllers
         public ActionResult Index(string filter, int? limit, int? offset)
         {
             var products = _storeService.GetProducts(limit, offset).MapToViewModel();
-            var categories = _storeService.GetCategories().MapToViewModel();
 
             BaseViewModel baseViewModel = new BaseViewModel();
-            baseViewModel.FilterViewModel = new FilterViewModel(categories, null, "All");
 
             if (filter != null)
             {
