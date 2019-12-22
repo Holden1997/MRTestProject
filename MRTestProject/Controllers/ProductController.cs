@@ -29,12 +29,20 @@ namespace MRTestProject.Controllers
 
             if (filter != null)
             {
-                baseViewModel.Products = products.Where(_ => _.Name.StartsWith(filter)
-                || _.Price.ToString().StartsWith(filter) 
-                || _.Category.Name.StartsWith(filter));
+                baseViewModel.Products = products.Where(_ =>
+                {
+                    if (_.Description == null)
+                        return _.Name.StartsWith(filter)
+                        || _.Price.ToString().StartsWith(filter)
+                        || _.Category.Name.StartsWith(filter);
+                   
+                    else
+                        return _.Name.StartsWith(filter)
+                        || _.Price.ToString().StartsWith(filter)
+                        || _.Category.Name.StartsWith(filter)
+                        || _.Description.StartsWith(filter);
+                });
             }
-            //  if (products != null & category != null & category != new Guid())
-            //    baseViewModel.Products = products.Where(product => product.Category.CategoryId == category);
 
             else baseViewModel.Products = products;
 
